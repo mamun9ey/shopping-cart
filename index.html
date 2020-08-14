@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" onclick="productEventHandler('phone',false)"><i class="fas fa-minus"></i>-</button>
+                           <input id="phoneInput" type="text" class="form-control text-center" value="1">
+                           <button class="btn btn-default" onclick="productEventHandler('phone',true)"><i class="fas fa-plus" ></i>+</button>
+                        </div>
+                        <h5>$ <span id="phonePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" onclick=" productEventHandler('case',false);"><i class="fas fa-minus"></i>-</button>
+                           <input id="caseInput" type="text" class="form-control text-center" value="1">
+                           <button class="btn btn-default" onclick=" productEventHandler('case',true);"><i class="fas fa-plus"></i>+</button>
+
+                        </div>
+                        <h5>$ <span id="casePrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5 id="subTotal">$1,278</h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5>$ <span id="grandTotal">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+         //   Phone Handler start
+                      productEventHandler('phone',true);
+                      productEventHandler('phone',false);
+       
+          //   Phone Handler end 
+
+          //  Case Handler start
+         
+          productEventHandler('case',true);
+          
+          productEventHandler('case',false);
+         
+          //  Case Handler end
+
+
+
+           function productEventHandler(product,isIncresing) {
+             const productInput =  document.getElementById(product + "Input");
+                const inputNumber = parseInt(productInput.value);
+                let inputNewNumber = 0;
+                if(isIncresing == true) {
+                   inputNewNumber = inputNumber + 1;
+                }
+                if (isIncresing == false && inputNumber > 0) {
+                   inputNewNumber = inputNumber - 1;
+                }
+                productInput.value = inputNewNumber;
+               //  const casePrice = inputNewNumber * 59;
+                  let productPrice = 0;
+                  if (product == 'phone') {
+                     productPrice = inputNewNumber * 1219;
+                  }
+
+                  if (product == 'case') {
+                   productPrice = inputNewNumber * 59;
+                   }
+                document.getElementById(product + "Price").innerText = productPrice;
+                calculateTotal () ;
+}        
+
+                  function calculateTotal () {
+                     const phoneInput = document.getElementById("phoneInput");
+                     const phoneCount = parseInt(phoneInput.value);
+
+                     const caseInput = document.getElementById("caseInput");
+                     const caseCount = parseInt(caseInput.value);
+
+                     const totalPrice = phoneCount * 1219 + caseCount * 59;
+                     document.getElementById("subTotal").innerText = totalPrice;
+
+                     const tax = Math.round(totalPrice * 0.1);
+                     document.getElementById("tax").innerText = tax;
+
+                    const totalAmount = totalPrice + tax;
+                    document.getElementById("grandTotal").innerText = totalAmount;
+                    
+
+                  }
+
+
+
+        
+
+        
+        
+
+        
+
+        
+        
+
+          // phone Common function start
+// 
+               //  function phoneEventHandler(isIncreasing) {
+               //  const phoneInput = document.getElementById("phoneInput");
+               //  const inputNumber = parseInt(phoneInput.value);
+               //  let inputNewNumber = 0;
+               //  if ( isIncreasing == true) {
+                  //  inputNewNumber = inputNumber + 1;
+               //  }
+// 
+               //  if (isIncreasing == false && inputNumber > 0) {
+                  //  inputNewNumber = inputNumber - 1;
+               //  }
+               //  phoneInput.value = inputNewNumber;
+               //  const totalPrice = inputNewNumber * 1219;
+               //  document.getElementById("phonePrice").innerText = totalPrice;
+               //  }
+
+               // phone Common function end
+// 
+               //   Case common function start
+               // function caseEventHandler(isIncresing) {
+                  // const caseInput =  document.getElementById("caseInput");
+                     // const inputNumber = parseInt(caseInput.value);
+                     // let inputNewNumber = 0;
+                     // if(isIncresing == true) {
+                        // inputNewNumber = inputNumber + 1;
+                     // }
+                     // if (isIncresing == false && inputNumber > 0) {
+                        // inputNewNumber = inputNumber - 1;
+                     // }
+                     // caseInput.value = inputNewNumber;
+                     // const casePrice = inputNewNumber * 59;
+                     // document.getElementById("casePrice").innerText = casePrice;
+               // }
+               //   Case common function start
+  </script>
+</body>
+
+</html>
